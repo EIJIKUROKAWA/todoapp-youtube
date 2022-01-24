@@ -1,17 +1,34 @@
-import React from 'react';
 
-export const InputForm = () => {
+import React, {useState} from 'react';
 
-  const handleSubmit = () => {
-    console.log("a")
+export const InputForm = ({taskList, setTaskList}) => {
+  const [inputText, setInputText] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setTaskList([
+      ...taskList,
+      {
+        id: taskList.length,
+        text: inputText,
+        completed: false
+      }
+   ]);
+
+   setInputText("")
+  }
+
+  const handleChange = (e) => {
+      setInputText(e.target.value);
+
   }
 
   return (
     <div className="inputForm">
-      <form onSummit={handleSubmit}>
-          <input type="text" />
+      <form onSubmit={handleSubmit}>
+          <input type="text" onChange={handleChange} value={inputText} />
           <button>
-          <i class="fas fa-plus-square"></i>
+          <i className="fas fa-plus-square"></i>
           </button>
       </form>
 
